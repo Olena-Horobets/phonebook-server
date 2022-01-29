@@ -3,12 +3,12 @@ const createError = require("http-errors");
 const { Contact } = require("../../models");
 
 const updateFavContact = async (req, res) => {
-	const { favorite } = req.body;
+	const { favourite } = req.body;
 
 	const { contactId } = req.params;
 	const contact = await Contact.findByIdAndUpdate(
 		contactId,
-		{ favorite },
+		{ favourite },
 		{ new: true }
 	);
 

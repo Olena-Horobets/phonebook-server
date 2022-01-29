@@ -5,6 +5,10 @@ const bcrypt = require("bcrypt");
 
 const userSchema = Schema(
 	{
+		name: {
+			type: String,
+			default: "",
+		},
 		email: {
 			type: String,
 			required: [true, "Email is required"],
@@ -39,6 +43,7 @@ userSchema.methods.isValidPassword = function (password) {
 const User = model("user", userSchema);
 
 const joiUserSchema = Joi.object({
+	name: Joi.string(),
 	email: Joi.string().required(),
 	password: Joi.string().min(6).required(),
 	subscription: Joi.string(),

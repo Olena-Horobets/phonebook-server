@@ -21,14 +21,14 @@ const contactSchema = Schema(
 			match: phonePattern,
 			required: true,
 		},
-		favorite: {
+		favourite: {
 			type: Boolean,
 			default: false,
 		},
-		// owner: {
-		// 	type: Schema.Types.ObjectId,
-		// 	ref: "user",
-		// },
+		owner: {
+			type: Schema.Types.ObjectId,
+			ref: "user",
+		},
 	},
 	{ versionKey: false, timestamps: true }
 );
@@ -37,11 +37,11 @@ const Contact = model("contact", contactSchema);
 
 const joiContactSchema = Joi.object({
 	name: Joi.string().min(2).max(30).required(),
-	email: Joi.string().email().required(),
+	email: Joi.string().required(),
 	phone: Joi.string().pattern(phonePattern).required(),
-	favorite: Joi.bool(),
+	favourite: Joi.bool(),
 });
 
-const favContactSchema = Joi.object({ favorite: Joi.bool().required() });
+const favContactSchema = Joi.object({ favourite: Joi.bool().required() });
 
 module.exports = { Contact, joiContactSchema, favContactSchema };

@@ -1,10 +1,12 @@
-const signupUser = require("./signup");
-const loginUser = require("./login");
-const logoutUser = require("./logout");
+const signupUser = require("./signupUser");
+const loginUser = require("./loginUser");
+const currentUser = require("./getCurrentUser");
+const logoutUser = require("./logoutUser");
 
 const ctrl = {
 	signupUser,
 	loginUser,
+	currentUser,
 	logoutUser,
 };
 
