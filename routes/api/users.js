@@ -22,4 +22,6 @@ router.patch(
 
 router.get("/logout", validateToken, ctrlWrapper(ctrl.logoutUser));
 
+router.delete("/:userId/remove", validateToken, ctrlWrapper(ctrl.removeUser));
+
 module.exports = router;

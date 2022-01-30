@@ -6,7 +6,7 @@ const createAndSaveToken = require("../../services/createAndSaveToken");
 const loginUser = async (req, res) => {
 	const { email, password } = req.body;
 	const user = await User.findOne({ email });
-	console.log(user);
+
 	if (!user || !user.isValidPassword(password)) {
 		throw new Unauthorized("email or password is wrong");
 	}

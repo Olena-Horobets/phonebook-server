@@ -11,16 +11,23 @@ const signupUser = async (req, res) => {
 		throw new Conflict(`Email ${email} in use`);
 	}
 
-	const newUser = new User({ name, email, subscription });
-	newUser.setPassword(password);
-	newUser.save();
+	const newUser = await new User({ name, email, subscription });
+	await newUser.setPassword(password);
+	await newUser.save();
 
 	const token = await createAndSaveToken(newUser._id);
 
 	res.status(201).json({
 		status: "success",
 		code: 201,
-		data: { user: { name, email, subscription }, token },
+		data: {
+			user: {
+				name: newUser.name,
+				email: newUser.email,
+				subscription: newUser.subscription,
+			},
+			token,
+		},
 	});
 };
 

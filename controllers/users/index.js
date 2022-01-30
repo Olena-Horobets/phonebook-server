@@ -3,6 +3,7 @@ const loginUser = require("./loginUser");
 const currentUser = require("./getCurrentUser");
 const updateSubscription = require("./updateSubscription");
 const logoutUser = require("./logoutUser");
+const removeUser = require("./removeUser");
 
 const ctrl = {
 	signupUser,
@@ -10,6 +11,7 @@ const ctrl = {
 	currentUser,
 	updateSubscription,
 	logoutUser,
+	removeUser,
 };
 
 module.exports = ctrl;

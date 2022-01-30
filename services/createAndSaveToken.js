@@ -5,7 +5,7 @@ const { SECRET_KEY } = process.env;
 
 const createAndSaveToken = async (id) => {
 	const token = jwt.sign({ id }, SECRET_KEY, { expiresIn: "1h" });
-	await User.findByIdAndUpdate(id, { token });
+	await User.findByIdAndUpdate(id, { token }, { new: true });
 
 	return token;
 };
