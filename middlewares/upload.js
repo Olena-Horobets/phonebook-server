@@ -10,6 +10,24 @@ const multerConfig = multer.diskStorage({
 	},
 });
 
-const upload = multer({ storage: multerConfig });
+const upload = multer({
+	storage: multerConfig,
+	fileFilter: (req, file, cb) => {
+		const fileSize = parseInt(req.headers["content-length"]);
+
+		if (file.mimetype !== "image/png") {
+			if (file.mimetype !== "image/jpeg") {
+				req.fileValidationError = "File mimetype should be png or jpeg only";
+				return cb(null, false);
+			}
+		}
+		if (fileSize > 1000000) {
+			req.fileValidationError = "File size should be under 1 Mb";
+			return cb(null, false);
+		}
+
+		cb(null, true);
+	},
+});
 
 module.exports = upload;
