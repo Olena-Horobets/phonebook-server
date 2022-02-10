@@ -31,6 +31,8 @@ router.patch(
 	ctrlWrapper(ctrl.uploadAvatar)
 );
 
+router.delete("/avatars", validateToken, ctrlWrapper(ctrl.removeAvatar));
+
 router.get("/logout", validateToken, ctrlWrapper(ctrl.logoutUser));
 
 router.delete("/:userId/remove", validateToken, ctrlWrapper(ctrl.removeUser));
