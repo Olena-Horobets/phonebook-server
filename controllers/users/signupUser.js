@@ -1,4 +1,5 @@
 const { Conflict } = require("http-errors");
+const gravatar = require("gravatar");
 
 const { User } = require("../../models");
 const createAndSaveToken = require("../../services/createAndSaveToken");
@@ -11,7 +12,8 @@ const signupUser = async (req, res) => {
 		throw new Conflict(`Email ${email} in use`);
 	}
 
-	const newUser = await new User({ name, email, subscription });
+	const avatarURL = gravatar.url(email);
+	const newUser = await new User({ name, email, subscription, avatarURL });
 	await newUser.setPassword(password);
 	await newUser.save();
 

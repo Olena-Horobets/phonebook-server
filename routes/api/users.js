@@ -1,8 +1,12 @@
 const express = require("express");
 
-const { ctrlWrapper, validation, validateToken } = require("../../middlewares");
+const {
+	ctrlWrapper,
+	validation,
+	validateToken,
+	upload,
+} = require("../../middlewares");
 const ctrl = require("../../controllers/users/index");
-
 const { joiUserSchema, joiSubscriptionSchema } = require("../../models/user");
 
 const router = express.Router();
@@ -14,10 +18,17 @@ router.post("/login", validation(joiUserSchema), ctrlWrapper(ctrl.loginUser));
 router.get("/current", validateToken, ctrlWrapper(ctrl.currentUser));
 
 router.patch(
-	"/current/subscription",
+	"/subscription",
 	validateToken,
 	validation(joiSubscriptionSchema),
 	ctrlWrapper(ctrl.updateSubscription)
+);
+
+router.patch(
+	"/avatars",
+	validateToken,
+	upload.single("avatar"),
+	ctrlWrapper(ctrl.uploadAvatar)
 );
 
 router.get("/logout", validateToken, ctrlWrapper(ctrl.logoutUser));
