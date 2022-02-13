@@ -10,7 +10,6 @@ const updateSubscription = async (req, res) => {
 		{ new: true }
 	);
 
-	console.log(_id, subscription);
 	res.status(200).json({
 		status: "success",
 		code: 200,
