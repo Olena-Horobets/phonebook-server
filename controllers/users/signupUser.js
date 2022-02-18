@@ -1,8 +1,9 @@
 const { Conflict } = require("http-errors");
+const { v4 } = require("uuid");
 const gravatar = require("gravatar");
 
 const { User } = require("../../models");
-const createAndSaveToken = require("../../services/createAndSaveToken");
+const sendEmail = require("../../services/sendEmail");
 
 const signupUser = async (req, res) => {
 	const { name, email, password, subscription } = req.body;
@@ -13,11 +14,27 @@ const signupUser = async (req, res) => {
 	}
 
 	const avatarURL = gravatar.url(email);
-	const newUser = await new User({ name, email, subscription, avatarURL });
+	const verificationToken = v4();
+	const newUser = await new User({
+		name,
+		email,
+		subscription,
+		avatarURL,
+		verificationToken,
+	});
 	await newUser.setPassword(password);
 	await newUser.save();
 
-	const token = await createAndSaveToken(newUser._id);
+	const msg = {
+		to: email,
+		subject: "Confirm your registration in the Phonebook App",
+		html: `
+		<p>We are glad to see you register in the Phonebook App. Confirm your registration by clicking on
+			<a href='http://localhost:3000/api/users/verify/${verificationToken}' target='_blank'>this link</a>
+		</p>`,
+	};
+
+	await sendEmail(msg);
 
 	res.status(201).json({
 		status: "success",
@@ -28,7 +45,6 @@ const signupUser = async (req, res) => {
 				email: newUser.email,
 				subscription: newUser.subscription,
 			},
-			token,
 		},
 	});
 };

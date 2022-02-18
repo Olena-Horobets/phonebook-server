@@ -8,7 +8,10 @@ const loginUser = async (req, res) => {
 	const user = await User.findOne({ email });
 
 	if (!user || !user.isValidPassword(password)) {
-		throw new Unauthorized("email or password is wrong");
+		throw new Unauthorized("Email or password is wrong");
+	}
+	if (!user.verified) {
+		throw new Unauthorized("Email isn't verified");
 	}
 
 	const token = await createAndSaveToken(user._id);

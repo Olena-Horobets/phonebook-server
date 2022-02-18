@@ -1,4 +1,6 @@
 const signupUser = require("./signupUser");
+const verifyUser = require("./verifyUser");
+const reVerifyUser = require("./reVerifyUser");
 const loginUser = require("./loginUser");
 const currentUser = require("./getCurrentUser");
 const updateSubscription = require("./updateSubscription");
@@ -9,6 +11,8 @@ const removeUser = require("./removeUser");
 
 const ctrl = {
 	signupUser,
+	verifyUser,
+	reVerifyUser,
 	loginUser,
 	currentUser,
 	updateSubscription,

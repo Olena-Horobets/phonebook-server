@@ -15,7 +15,4 @@ describe("Addition service test", () => {
 	it("Add two valid numbers", () => {
 		expect(1 + 1).toBe(2);
 	});
-	it("Add two valid numbers", () => {
-		expect(1 + 1).not.toBe(3);
-	});
 });
