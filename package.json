@@ -2,6 +2,8 @@
 	"name": "phonebook-server",
 	"version": "1.0.0",
 	"private": true,
+	"author": "Olena-Horobets",
+	"license": "MIT",
 	"jest": {
 		"verbose": true
 	},
@@ -39,5 +41,12 @@
 		"eslint-plugin-promise": "5.2.0",
 		"jest": "^27.5.1",
 		"nodemon": "2.0.15"
+	},
+	"keywords": [
+		"example",
+		"heroku"
+	],
+	"engines": {
+		"node": "16.x"
 	}
 }
